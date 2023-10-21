@@ -5,24 +5,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { crtContext } from "./App";
-
-function Loading(){
-    return<h1>Loading.....</h1>
+import { API } from "./API.js";
+function Loading() {
+  return <h1>Loading.....</h1>;
 }
 const Edit = () => {
   const [movie, setMovie] = useState(null);
   const { id } = useParams();
   console.log(id);
   useEffect(() => {
-    fetch(`https://6522de36f43b17938414fce3.mockapi.io/movies/${id}`)
+    fetch(`${API}/${id}`)
       .then((data) => data.json())
       .then((mvs) => setMovie(mvs));
   }, []);
 
-  return movie ? <EditMovie movie={movie} /> : <Loading/>;
+  return movie ? <EditMovie movie={movie} /> : <Loading />;
 };
 const EditMovie = ({ movie }) => {
-    const getMovie=useContext(crtContext)
+  const getMovie = useContext(crtContext);
   const formValidation = yup.object({
     name: yup.string().required("Why not fill this name?😄"),
     poster: yup
@@ -43,42 +43,40 @@ const EditMovie = ({ movie }) => {
       .min(4, "Need a longer trailer😁")
       .required("Why not fill this trailer?😄"),
   });
-    const { id } = useParams();
-    const navigate=useNavigate()
-  function updateMovie(updatedMovie){
-      fetch(`https://6522de36f43b17938414fce3.mockapi.io/movies/${id}`, {
-          method: "PUT",
-          body: JSON.stringify(updatedMovie),
-          headers:{
-            "Content-Type":"application/json",
-          }
-      })
-          .then((data) => data.json())
-          .then(()=>getMovie())
-          .then(()=>navigate("/movies"))
-    }
+  const { id } = useParams();
+  const navigate = useNavigate();
+  function updateMovie(updatedMovie) {
+    fetch(`${API}/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(updatedMovie),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => data.json())
+      .then(() => getMovie())
+      .then(() => navigate("/movies"));
+  }
   const { handleBlur, values, handleChange, errors, touched, handleSubmit } =
     useFormik({
       initialValues: {
         name: movie.name,
-        poster:movie.poster,
-        rating:movie.rating,
-        summary:movie.summary,
-        trailer:movie.trailer,
+        poster: movie.poster,
+        rating: movie.rating,
+        summary: movie.summary,
+        trailer: movie.trailer,
       },
       validationSchema: formValidation,
       onSubmit: (values) => {
-        updateMovie(values)
+        updateMovie(values);
       },
     });
 
-
   return (
     <section className="add-movies">
-    
       <form className="addMovie" onSubmit={handleSubmit}>
         <TextField
-        //   id="outlined-basic"
+          //   id="outlined-basic"
           label="Name"
           variant="outlined"
           value={values.name}
@@ -90,7 +88,7 @@ const EditMovie = ({ movie }) => {
         />
 
         <TextField
-        //   id="outlined-basic"
+          //   id="outlined-basic"
           label="Poster"
           variant="outlined"
           value={values.poster}
@@ -102,7 +100,7 @@ const EditMovie = ({ movie }) => {
         />
 
         <TextField
-        //   id="outlined-basic"
+          //   id="outlined-basic"
           label="Rating"
           variant="outlined"
           value={values.rating}
@@ -114,7 +112,7 @@ const EditMovie = ({ movie }) => {
         />
 
         <TextField
-        //   id="outlined-basic"
+          //   id="outlined-basic"
           label="Summary"
           variant="outlined"
           value={values.summary}
@@ -126,7 +124,7 @@ const EditMovie = ({ movie }) => {
         />
 
         <TextField
-        //   id="outlined-basic"
+          //   id="outlined-basic"
           label="Trailer"
           variant="outlined"
           value={values.trailer}
@@ -137,7 +135,7 @@ const EditMovie = ({ movie }) => {
         />
         <Button
           variant="contained"
-          type="submit"
+          type={"submit"}
           color={"success"}
           sx={{ fontWeight: "900" }}
         >

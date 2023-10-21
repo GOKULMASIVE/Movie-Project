@@ -9,10 +9,11 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import { useState } from "react";
-
+import { API } from "./API.js";
 import { useNavigate } from "react-router-dom";
 import { Counter } from "./Counter";
 import { Typography } from "@mui/material";
+
 
 function Movie({ addMovies, getMovie }) {
   // console.log(addMovies);
@@ -20,7 +21,7 @@ function Movie({ addMovies, getMovie }) {
   let [arrow, setArrow] = useState(true);
   const navigate = useNavigate();
   const deleteMovie = (id) => {
-    fetch(`https://6522de36f43b17938414fce3.mockapi.io/movies/${id}`, {
+    fetch(`${API}/${id}`, {
       method: "DELETE",
     }).then(() => getMovie());
   };

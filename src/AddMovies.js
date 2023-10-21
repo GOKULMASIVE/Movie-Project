@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {API} from './API.js'
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,6 @@ import * as yup from "yup";
 function AddMovie({ getMovie }) {
   const navigate = useNavigate();
 
-  
   const validationForm = yup.object({
     name: yup.string().required("Why not fill this name?😄"),
     poster: yup
@@ -45,7 +44,7 @@ function AddMovie({ getMovie }) {
       },
     });
   const InsertMovie = (newMovie) => {
-    fetch(`https://6522de36f43b17938414fce3.mockapi.io/movies`, {
+    fetch(`${API}`, {
       method: "POST",
       body: JSON.stringify(newMovie),
       headers: {

@@ -12,19 +12,19 @@ import Paper from "@mui/material/Paper";
 import data from "./data.js";
 import Edit from "./Edit.js";
 import BasicForm from "./BasicForm.js";
+import {API} from './API.js'
 export const crtContext = createContext();
 function App() {
   const [addMovie, setAddMovie] = useState([]);
-
+console.log(API);
   const getMovies = () => {
-    fetch("https://6522de36f43b17938414fce3.mockapi.io/movies")
+    fetch(`${API}`)
       .then((data) => data.json())
       .then((mvs) => setAddMovie(mvs));
   };
 
   useEffect(() => getMovies(), []);
 
-  
   const [mode, setMode] = useState("dark");
   const darkTheme = createTheme({
     palette: {
@@ -45,16 +45,11 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route
                 path="/movies"
-                element={
-                  <Movie
-                    addMovies={addMovie}
-                    getMovie={getMovies}
-                  />
-                }
+                element={<Movie addMovies={addMovie} getMovie={getMovies} />}
               />
               <Route
                 path="/add-movies"
-                element={<AddMovie getMovie={getMovies}/>}
+                element={<AddMovie getMovie={getMovies} />}
               />
               <Route
                 path="colors"
@@ -63,9 +58,14 @@ function App() {
               <Route path="/add-colors" element={<ColorComponent />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/movies/trailer/:id" element={<Trailer />} />
-              <Route path="/movies/edit/:id" element={
-              <crtContext.Provider value={getMovies}><Edit /></crtContext.Provider>} />
-
+              <Route
+                path="/movies/edit/:id"
+                element={
+                  <crtContext.Provider value={getMovies}>
+                    <Edit />
+                  </crtContext.Provider>
+                }
+              />
             </Routes>
           </section>
         </>
