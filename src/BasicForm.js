@@ -40,10 +40,7 @@ const BasicForm = () => {
       />
       {formik.errors.password && formik.touched.password?formik.errors.password:null}
       <button type="submit">Submit</button>
-      {/* Error
-      <pre>{JSON.stringify(formik.errors)}</pre>
-      Touched
-      <pre>{JSON.stringify(formik.touched)}</pre> */}
+      
     </form>
   );
 };
