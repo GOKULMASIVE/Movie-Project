@@ -2,21 +2,19 @@ import { createContext, useEffect, useState } from "react";
 import Movie from "./Movie.js";
 import AddMovie from "./AddMovies.js";
 import ColorComponent from "./Colors.js";
-import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, } from "react-router-dom";
 import { Home } from "./Home.js";
 import { NotFound } from "./NotFound.js";
 import { Trailer } from "./Trailer.js";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { NavBar } from "./NavBar.js";
 import Paper from "@mui/material/Paper";
-import data from "./data.js";
 import Edit from "./Edit.js";
-import BasicForm from "./BasicForm.js";
 import {API} from './API.js'
 export const crtContext = createContext();
 function App() {
   const [addMovie, setAddMovie] = useState([]);
-console.log(API);
+
   const getMovies = () => {
     fetch(`${API}`)
       .then((data) => data.json())
