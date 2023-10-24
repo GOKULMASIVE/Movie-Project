@@ -21,7 +21,7 @@ function Movie({ addMovies, getMovie }) {
   let [arrow, setArrow] = useState(true);
   const navigate = useNavigate();
   const deleteMovie = (id) => {
-    fetch(`${API}/${id}`, {
+    fetch(`${API}/movies/${id}`, {
       method: "DELETE",
     }).then(() => getMovie());
   };
@@ -51,7 +51,7 @@ function Movie({ addMovies, getMovie }) {
                       color="primary"
                       className="error-icon"
                       aria-label="information"
-                      onClick={() => navigate(`/movies/trailer/${movie.id}`)}
+                      onClick={() => navigate(`/movies/trailer/${movie._id}`)}
                     />
                   </span>
                 </div>
@@ -79,14 +79,14 @@ function Movie({ addMovies, getMovie }) {
               <IconButton
                 color="secondary"
                 aria-label="add an alarm"
-                onClick={() => navigate(`/movies/edit/${movie.id}`)}
+                onClick={() => navigate(`/movies/edit/${movie._id}`)}
               >
                 <EditIcon />
               </IconButton>
               <IconButton
                 aria-label="delete"
                 color="error"
-                onClick={() => deleteMovie(movie.id)}
+                onClick={() => deleteMovie(movie._id)}
               >
                 <DeleteIcon />
               </IconButton>

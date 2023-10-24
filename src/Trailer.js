@@ -7,7 +7,7 @@ export const Trailer = () => {
   const [movie, setMovie] = useState({});
   const { id } = useParams();
   useEffect(() => {
-    fetch(`${API}/${id}`)
+    fetch(`${API}/movies/${id}`)
       .then((data) => data.json())
       .then((mvs) => setMovie(mvs));
   }, []);

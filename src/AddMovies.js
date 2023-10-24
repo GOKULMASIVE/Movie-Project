@@ -44,7 +44,7 @@ function AddMovie({ getMovie }) {
       },
     });
   const InsertMovie = (newMovie) => {
-    fetch(`${API}`, {
+    fetch(`${API}/movies`, {
       method: "POST",
       body: JSON.stringify(newMovie),
       headers: {

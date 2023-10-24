@@ -14,7 +14,7 @@ const Edit = () => {
   const { id } = useParams();
   console.log(id);
   useEffect(() => {
-    fetch(`${API}/${id}`)
+    fetch(`${API}/movies/${id}`)
       .then((data) => data.json())
       .then((mvs) => setMovie(mvs));
   }, []);
@@ -44,9 +44,10 @@ const EditMovie = ({ movie }) => {
       .required("Why not fill this trailer?😄"),
   });
   const { id } = useParams();
+  console.log("Movie Id",id);
   const navigate = useNavigate();
   function updateMovie(updatedMovie) {
-    fetch(`${API}/${id}`, {
+    fetch(`${API}/movies/${id}`, {
       method: "PUT",
       body: JSON.stringify(updatedMovie),
       headers: {

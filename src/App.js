@@ -16,7 +16,7 @@ function App() {
   const [addMovie, setAddMovie] = useState([]);
 
   const getMovies = () => {
-    fetch(`${API}`)
+    fetch(`${API}/movies`)
       .then((data) => data.json())
       .then((mvs) => setAddMovie(mvs));
   };
